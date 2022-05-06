@@ -66,3 +66,14 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+LatestBuild
+ReDingTalk/
+ReDingTalk.*
+ReDingTalkDylib/AntiAntiDebug
+ReDingTalkDylib/Config
+ReDingTalkDylib/Logos
+ReDingTalkDylib/fishhook
+ReDingTalkDylib/Tools
+ReDingTalkDylib/Trace
+ReDingTalkDylib/icon_current_location.png
+ReDingTalkDylib/ReDingTalkDylib-Prefix.pch
