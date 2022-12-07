@@ -14,12 +14,18 @@
 #import <Cycript/Cycript.h>
 #import <MDCycriptManager.h>
 #import <CoreLocation/CoreLocation.h>
+#import <WebKit/WebKit.h>
+
 
 #import "RDTModels.h"
 #import "RDTDefines.h"
 #import "RDTMapViewController.h"
+#import "RDTLogView.h"
 
 #define Class(name) NSClassFromString(@#name)
+#define New(name) [Class(name) alloc]
+#define isClass(t, C) [t isKindOfClass: [C class]]
+
 #define weakify(val) __weak __typeof(val) w##val = val
 #define strongify(val) __weak __typeof(val) val = w##val
 
@@ -53,6 +59,12 @@ CHOptimizedMethod0(self, BOOL, DTALocationManager, detectRiskOfFakeLocation) {
 
 CHOptimizedMethod0(self, BOOL, DTALocationManager, dt_pausesLocationUpdatesAutomatically) {
     return NO;
+}
+
+//amapLocationManager:didFailWithError:
+CHOptimizedMethod2(self, void, DTALocationManager, amapLocationManager, id, m, didFailWithError, id, e) {
+    NSString * errorDescription = [e localizedDescription];
+    [[RDTLogView shared] showContent:errorDescription];
 }
 
 CHOptimizedMethod2(self, void, DTALocationManager, amapLocationManager, id, a1, didUpdateLocation, CLLocation *, location) {
@@ -102,7 +114,8 @@ CHConstructor {
     CHHook0(DTALocationManager, detectRiskOfFakeLocation);
     CHHook0(DTALocationManager, dt_pausesLocationUpdatesAutomatically);
     CHHook2(DTALocationManager, amapLocationManager, didUpdateLocation);
-
+    CHHook2(DTALocationManager, amapLocationManager, didFailWithError);
+    
     CHLoadLateClass(AMapGeoFenceManager);
     CHHook0(AMapGeoFenceManager, detectRiskOfFakeLocation);
     CHHook0(AMapGeoFenceManager, pausesLocationUpdatesAutomatically);

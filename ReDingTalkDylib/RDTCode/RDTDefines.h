@@ -69,7 +69,16 @@
 + (NSString *)transferToHttpUrl: (NSString *)uri;
 @end
 
+@interface RVKJsBridge
+@property (nonatomic, weak) WKWebView * contentView;
+@end
+
 @interface UIImageView()
 - (void)setImageWithURL: (NSString *)url cornerRadius: (CGFloat)radius placeholderImage: (id)placeholder progressBlock:(id)progressBlock succeedBlock: (id)successBlock failedBlock: (id)failedBlock;
 @end
+
+@interface WKWebView()
+@property (nonatomic, weak) id rvaAssginNavigationDelegate;
+@end
+
 #endif /* RDTDefines_h */
